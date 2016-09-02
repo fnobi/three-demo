@@ -1,4 +1,4 @@
-kayac-html5-starter
+three-demo
 ====
 
 ## 事前に用意するもの
