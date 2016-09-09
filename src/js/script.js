@@ -1,23 +1,26 @@
-const THREE = require("three");
+const THREE = require('three');
+
+const WIDTH = 2545;
+const HEIGHT = 1389;
 
 
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-camera.position.z = 1000;
+const camera = new THREE.OrthographicCamera(0, window.innerWidth, 0, window.innerHeight, 0.001, 10000);
 
-const geometry = new THREE.BoxGeometry(200, 200, 200);
-const material = new THREE.MeshLambertMaterial({ color: 0xcccccc });
+(function () {
+    const texture = THREE.ImageUtils.loadTexture('img/kayac-corporate.png');
 
-const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+    const material = new THREE.SpriteMaterial({
+        map: texture,
+        color: 0xffffff
+    });
 
-const ambientLight = new THREE.AmbientLight(0xffffff);
-scene.add(ambientLight);
-
-const directionalLight = new THREE.DirectionalLight(0xffffff);
-directionalLight.position.set(-30, 150, 30);
-scene.add(directionalLight);
+    const sprite = new THREE.Sprite(material);
+    sprite.position.set(WIDTH * 0.5, HEIGHT * 0.5, -1);
+    sprite.scale.set(-WIDTH, HEIGHT, 1);
+    scene.add(sprite);
+})();
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -28,13 +31,5 @@ document.body.appendChild(renderer.domElement);
 (function animate() {
     requestAnimationFrame(animate);
 
-    mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.01;
-    mesh.rotation.z += 0.01;
-
     renderer.render(scene, camera);
 })();
-
-renderer.domElement.addEventListener('click', () => {
-    material.wireframe = !material.wireframe;
-});
