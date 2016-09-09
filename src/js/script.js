@@ -29,7 +29,8 @@ document.body.appendChild(renderer.domElement);
     requestAnimationFrame(animate);
 
     mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.02;
+    mesh.rotation.y += 0.01;
+    mesh.rotation.z += 0.01;
 
     renderer.render(scene, camera);
 })();
