@@ -70,7 +70,8 @@ gulp.task('browser-sync', () => {
     watch([`${SRC}/js/**/*.js`], gulp.series('browserify', browserSync.reload));
     watch([
         `${SRC}/pug/**/*.pug`,
-        `${SRC}/config/meta.yml`
+        `${SRC}/config/meta.yml`,
+        `${SRC}/shader/*`
     ], gulp.series('pug', browserSync.reload));
 });
 

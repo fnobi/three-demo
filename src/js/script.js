@@ -1,13 +1,21 @@
 const THREE = require("three");
 
-
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
 camera.position.z = 1000;
 
 const geometry = new THREE.BoxGeometry(200, 200, 200);
-const material = new THREE.MeshLambertMaterial({ color: 0xcccccc });
+const material = new THREE.ShaderMaterial({
+    uniforms: {
+        time: {
+            type: 'f',
+            value: 0.0
+        }
+    },
+    vertexShader: document.getElementById('sample-vshader').textContent,
+    fragmentShader: document.getElementById('sample-fshader').textContent
+});
 
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
@@ -25,12 +33,16 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 
+const startTime = Date.now();
+
 (function animate() {
     requestAnimationFrame(animate);
 
     mesh.rotation.x += 0.01;
     mesh.rotation.y += 0.01;
     mesh.rotation.z += 0.01;
+
+    material.uniforms.time.value = (Date.now() - startTime) / 1000;
 
     renderer.render(scene, camera);
 })();

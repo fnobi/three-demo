@@ -8,3 +8,7 @@ prepend ConfigBlock
 //- append JavascriptBlock
 
 block ContentBlock
+  script#sample-vshader(type="x-shader/x-vertex")
+    include ../shader/sample.vs
+  script#sample-fshader(type="x-shader/x-fragment")
+    include ../shader/sample.fs
